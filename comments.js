@@ -1,50 +1,20 @@
 // create web server
-// use express library
-const express = require('express');
-const app = express();
+var express = require('express');
+var app = express();
 
-// use body-parser to parse the body of the request
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-
-// create a comments array
-const comments = [];
-
-// create a route to get all comments
-app.get('/comments', (req, res) => {
-    res.json(comments);
+// create a route
+app.get('/comments', function(req, res) {
+  res.send('This is the comments page');
 });
 
-// create a route to add a comment
-app.post('/comments', (req, res) => {
-    const comment = req.body;
-    comments.push(comment);
-    res.json(comment);
+// start the server
+app.listen(3000, function() {
+  console.log('Server is running on http://localhost:3000/');
 });
 
-// create a route to get a comment by id
-app.get('/comments/:id', (req, res) => {
-    const id = req.params.id;
-    const comment = comments[id];
-    res.json(comment);
-});
-
-// create a route to update a comment by id
-app.put('/comments/:id', (req, res) => {
-    const id = req.params.id;
-    const newComment = req.body;
-    comments[id] = newComment;
-    res.json(newComment);
-});
-
-// create a route to delete a comment by id
-app.delete('/comments/:id', (req, res) => {
-    const id = req.params.id;
-    comments.splice(id, 1);
-    res.json(id);
-});
-
-// run the web server
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
-});
+// run the server by typing node comments.js in the terminal
+// open a web browser and type http://localhost:3000/comments
+// you should see 'This is the comments page' in the browser
+// to stop the server, press control+c in the terminal
+// you can also change the port number in the listen function, if you want
+// to run the server on a different port
